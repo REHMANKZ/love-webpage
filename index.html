@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body { font-family: 'Poppins', sans-serif; }
+h1, h2 { font-family: 'Playfair Display', serif; }
+
+/* Fade */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 2s ease forwards;
+}
+@keyframes fadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Gallery */
+#gallery::-webkit-scrollbar { display: none; }
+
+.gallery-img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.active-img {
+  transform: scale(1.15) translateY(-10px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+</style>
+</head>
+
+<body class="bg-[#F7CAC9] text-gray-800 overflow-x-hidden">
+
+<!-- HERO -->
+<section class="h-screen flex flex-col justify-center items-center text-center px-6 fade-in">
+  <h1 class="text-4xl md:text-6xl text-[#5A0F2E] mb-6">
+    My Dearest Rabel ❤️
+  </h1>
+  <p class="max-w-xl text-lg">
+    You are my today, tomorrow & forever. Every moment with you feels magical...
+  </p>
+</section>
+
+<!-- GALLERY -->
+<section class="py-16 px-6 bg-white overflow-hidden">
+  <h2 class="text-3xl text-center text-[#5A0F2E] mb-10">Your's  Beautiful Moments that you've shared with me 💕</h2>
+
+  <div id="gallery" class="flex gap-6 overflow-x-auto scroll-smooth px-4">
+
+    <img src="images/img1.jpeg" class="gallery-img min-w-[250px] h-[320px] object-cover rounded-2xl transition duration-500 cursor-pointer">
+    <img src="images/img2.jpeg" class="gallery-img min-w-[250px] h-[320px] object-cover rounded-2xl transition duration-500 cursor-pointer">
+    <img src="images/img3.jpeg" class="gallery-img min-w-[250px] h-[320px] object-cover rounded-2xl transition duration-500 cursor-pointer">
+    <img src="images/img4.jpeg" class="gallery-img min-w-[250px] h-[320px] object-cover rounded-2xl transition duration-500 cursor-pointer">
+
+  </div>
+</section>
+
+<!-- PROPOSAL -->
+<section class="h-screen flex flex-col justify-center items-center text-center px-6 relative">
+  <h2 class="text-4xl text-[#5A0F2E] mb-8">
+    Ayesha, will you be mine forever? ❤️
+  </h2>
+
+  <div class="flex gap-6 relative">
+
+    <!-- YES BUTTON -->
+    <button id="yesBtn"
+      class="bg-[#5A0F2E] text-white px-8 py-3 rounded-full text-lg z-20 relative">
+      Yes 💖
+    </button>
+
+    <!-- NO BUTTON -->
+    <button id="noBtn"
+      class="bg-white border px-8 py-3 rounded-full text-lg fixed z-10">
+      No 😅
+    </button>
+
+  </div>
+</section>
+
+<script>
+
+/* ================= GALLERY CLICK ================= */
+const images = document.querySelectorAll('.gallery-img');
+images.forEach(img => {
+  img.addEventListener('click', () => {
+    images.forEach(i => i.classList.remove('active-img'));
+    img.classList.add('active-img');
+  });
+});
+
+/* ================= NO BUTTON (MOBILE + DESKTOP FIXED) ================= */
+const noBtn = document.getElementById('noBtn');
+
+// initial position
+noBtn.style.top = "70%";
+noBtn.style.left = "60%";
+
+function moveNoButton() {
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 60);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+// Desktop
+noBtn.addEventListener('mouseenter', moveNoButton);
+
+// Mobile
+noBtn.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  moveNoButton();
+});
+
+/* ================= YES BUTTON ================= */
+document.getElementById('yesBtn').addEventListener('click', () => {
+
+  // Confetti
+  confetti({
+    particleCount: 200,
+    spread: 120,
+    origin: { y: 0.6 }
+  });
+
+  // SMS
+  const phone = "923173992419"; // CHANGE THIS
+  const message = "She said YES!!! ❤️💍";
+
+  const isMobile = /Android|iPhone/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    window.location.href = `sms:${phone}?body=${encodeURIComponent(message)}`;
+  } else {
+    alert("Open on phone to send SMS ❤️");
+  }
+
+  setTimeout(() => {
+    alert("I love you ❤️");
+  }, 800);
+});
+
+</script>
+
+</body>
+</html>
+```
